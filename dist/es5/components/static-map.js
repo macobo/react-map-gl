@@ -195,7 +195,7 @@ var StaticMap = (function(_PureComponent) {
       {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps) {
-          if (this._mapbox) {
+          if (this._mapbox && this.props.updateMapStyle) {
             this._updateMapStyle(prevProps, this.props);
 
             this._updateMapProps(this.props);
@@ -230,7 +230,7 @@ var StaticMap = (function(_PureComponent) {
           var mapStyle = newProps.mapStyle;
           var oldMapStyle = oldProps.mapStyle;
 
-          if (newProps.updateMapStyle && (mapStyle !== oldMapStyle || !oldProps.updateMapStyle)) {
+          if (mapStyle !== oldMapStyle || !oldProps.updateMapStyle) {
             this._map.setStyle((0, _styleUtils.normalizeStyle)(mapStyle), {
               diff: !this.props.preventStyleDiffing
             });
