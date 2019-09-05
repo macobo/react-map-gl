@@ -149,7 +149,7 @@ export default class StaticMap extends PureComponent<StaticMapProps, State> {
   }
 
   componentDidUpdate(prevProps: StaticMapProps) {
-    if (this._mapbox) {
+    if (this._mapbox && this.props.updateMapStyle) {
       this._updateMapStyle(prevProps, this.props);
       this._updateMapProps(this.props);
     }
@@ -201,7 +201,7 @@ export default class StaticMap extends PureComponent<StaticMapProps, State> {
   _updateMapStyle(oldProps: StaticMapProps, newProps: StaticMapProps) {
     const mapStyle = newProps.mapStyle;
     const oldMapStyle = oldProps.mapStyle;
-    if (newProps.updateMapStyle && (mapStyle !== oldMapStyle || !oldProps.updateMapStyle)) {
+    if (mapStyle !== oldMapStyle || !oldProps.updateMapStyle) {
       this._map.setStyle(normalizeStyle(mapStyle), {
         diff: !this.props.preventStyleDiffing
       });
